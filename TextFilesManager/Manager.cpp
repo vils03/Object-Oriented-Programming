@@ -2,14 +2,19 @@
 
 bool compare(const File& lhs, const File& rhs, SortBy sortBy)
 {
-	switch (sortBy)
-	{
-	case SortBy::Name: return strcmp(lhs.getName(), rhs.getName()) < 0; break;
-	case SortBy::size:   return lhs.getSize() < rhs.getSize();
-	//case SortBy::CreateTime: return lhs.getCreationDate() < rhs.getCreationDate();
-	//case SortBy::ModificationTime: return lhs.getLastMDate() < rhs.getLastMDate();
-	default: return false;
+	if(sortBy == SortBy::Name)
+		return strcmp(lhs.getName(), rhs.getName()) < 0;
+	else if(sortBy == SortBy::size)
+		return lhs.getSize() < rhs.getSize();
+	else if (sortBy == SortBy::CreateTime) {
+		Event ev = lhs.getCreationDate();
+		return ev.lessThan(rhs.getCreationDate());
 	}
+	else if (sortBy == SortBy::ModificationTime) {
+		Event e = lhs.getLastMDate();
+		return e.lessThan(rhs.getLastMDate());
+	}
+	return false;
 }
 
 void Manager::free()
@@ -199,7 +204,6 @@ unsigned Manager::gerGroup(char user, char mode)
 
 void Manager::sortBy(SortBy type)
 {
-	if (type == SortBy::Name) {
 		for (unsigned i = 0; i < filesCount - 1; ++i) {
 			int minIndex = i;
 			for (int j = i; j < filesCount; j++)
@@ -211,6 +215,5 @@ void Manager::sortBy(SortBy type)
 			if (i != minIndex)
 				std::swap(files[i], files[minIndex]);
 		}
-	}
 }
 

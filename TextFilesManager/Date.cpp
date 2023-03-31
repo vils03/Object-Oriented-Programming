@@ -94,6 +94,18 @@ int Date::getDayOfWeek() const
 	return dayOfWeek;
 }
 
+bool Date::lessThan(const Date& other)
+{
+	if (year > other.year)
+		return false;
+	else if (month > other.month)
+		return false;
+	else if (day > other.day)
+		return false;
+	else
+		return true;
+}
+
 bool Date::isEqualTo(const Date& other) const
 {
 	return day == other.day &&

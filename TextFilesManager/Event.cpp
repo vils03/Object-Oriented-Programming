@@ -17,6 +17,15 @@ const Time& Event::getStartTime() const
 	return _startTime;
 }
 
+bool Event::lessThan(const Event& other)
+{
+	if(!_date.lessThan(other.getDate()))
+		return false;
+	else if(_startTime.compare(other.getStartTime()) > 1)
+		return false;
+	return true;
+}
+
 void Event::print() const
 {
 	_date.print();

@@ -16,6 +16,8 @@ public:
 	const Date& getDate() const;
 	const Time& getStartTime() const;
 
+	bool lessThan(const Event& other);
+
 	void print() const;
 
 };

@@ -32,4 +32,6 @@ public:
 	void goToNextDay();
 	int getDayOfWeek() const;
 
+	bool lessThan(const Date& other);
+
 };
